@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98E8842F-61D3-4C22-9E7D-CA8038E43832}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C3A447B0-C277-4443-920C-46234C764FB0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FuzzyLogic</RootNamespace>
-    <AssemblyName>FuzzyLogic</AssemblyName>
+    <RootNamespace>TestConsoleApp</RootNamespace>
+    <AssemblyName>TestConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,27 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fuzzy.cs" />
-    <Compile Include="Operations\AlgebraicIntersection.cs" />
-    <Compile Include="Operations\AlgebraicUnion.cs" />
-    <Compile Include="Operations\DisjunctionSum.cs" />
-    <Compile Include="Operations\LambdaSum.cs" />
-    <Compile Include="Operations\Operations.cs" />
-    <Compile Include="Operations\BoundedIntersection.cs" />
-    <Compile Include="Operations\BoundedUnion.cs" />
-    <Compile Include="Operations\Complement.cs" />
-    <Compile Include="Operations\DrasticIntersection.cs" />
-    <Compile Include="Operations\DrasticUnion.cs" />
-    <Compile Include="Operations\IBinaryOperation.cs" />
-    <Compile Include="Operations\Intersection.cs" />
-    <Compile Include="Operations\IOperation.cs" />
-    <Compile Include="Operations\IUnaryOperation.cs" />
-    <Compile Include="Operations\Power.cs" />
-    <Compile Include="Operations\ProductByNumber.cs" />
-    <Compile Include="Operations\SetDifference.cs" />
-    <Compile Include="Operations\SymmetricDifference.cs" />
-    <Compile Include="Operations\Union.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FuzzyLogic\FuzzyLogic.csproj">
+      <Project>{98E8842F-61D3-4C22-9E7D-CA8038E43832}</Project>
+      <Name>FuzzyLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

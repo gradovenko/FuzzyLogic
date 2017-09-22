@@ -8,6 +8,9 @@ namespace FuzzyLogic.Operations
 {
     public class Operations
     {
-        public static double Union(double operand1, double operand2) => new Union().Operate(operand1, operand2);
+        public static IEnumerable<double> Union(IEnumerable<double> sets1, IEnumerable<double> sets2)
+        {
+            return sets1.Zip(sets2, (a, b) => new Union().Operate(a, b));
+        }
     }
 }

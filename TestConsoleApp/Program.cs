@@ -13,8 +13,15 @@ namespace TestConsoleApp
     {
         static void Main(string[] args)
         {
-            var a = new Operations();
-            Console.WriteLine(Operations.Union(5,3));
+            var a = new List<double>() {0.25, 0.3, 0.4};
+            var b = new List<double>() { 0.54, 0.12, 0.93 };
+
+            var l = Operations.Union(a, b).ToList();
+
+            foreach (var x in l)
+            {
+                Console.WriteLine(x);
+            }
         }
     }
 }

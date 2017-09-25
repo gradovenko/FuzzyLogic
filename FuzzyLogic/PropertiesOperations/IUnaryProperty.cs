@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FuzzyLogic.Sets;
 
-namespace FuzzyLogic
+namespace FuzzyLogic.PropertiesOperations
 {
-    public class Fuzzy
+    public interface IUnaryProperty
     {
-
-        public Fuzzy()
-        {
-            
-        }
+        bool Operate(Set set);
     }
 }

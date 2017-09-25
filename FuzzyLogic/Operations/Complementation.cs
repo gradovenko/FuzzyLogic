@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FuzzyLogic.Operations
 {
-    public class Complement : IUnaryOperations
+    public class Complementation : IUnaryOperations
     {
         public double Operate(double operand) => 1 - operand;
     }

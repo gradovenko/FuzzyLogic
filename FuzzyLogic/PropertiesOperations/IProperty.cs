@@ -4,14 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FuzzyLogic
+namespace FuzzyLogic.PropertiesOperations
 {
-    public class Fuzzy
-    {
-
-        public Fuzzy()
-        {
-            
-        }
-    }
+    public interface IOperation { }
 }

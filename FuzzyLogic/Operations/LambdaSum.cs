@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FuzzyLogic.Operations
 {
-    public class LambdaSum : IBinaryOperation
+    public class LambdaSum : ITernaryOperation
     {
-        public double Operate(double operand1, double operand2) => 0;
+        public double Operate(double operand1, double operand2, double operand3) => operand1 * operand2 + (1 - operand1) * operand3;
     }
 }

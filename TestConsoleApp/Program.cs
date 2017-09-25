@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using FuzzyLogic.Operations;
+using FuzzyLogic.PropertiesOperations;
 
 namespace TestConsoleApp
 {
@@ -13,15 +14,38 @@ namespace TestConsoleApp
     {
         static void Main(string[] args)
         {
-            var a = new List<double>() {0.25, 0.3, 0.4};
-            var b = new List<double>() { 0.54, 0.12, 0.93 };
+            var a = new List<double>() { 0.8, 1, 0.6 };
+            var b = new List<double>() { 0.7, 1, 0.5};
 
-            var l = Operations.Union(a, b).ToList();
+            var set1 = new FuzzyLogic.Sets.Set(a);
+            var set2 = new FuzzyLogic.Sets.Set(b);
+            var result1 = set1.Union(set2).Result;
+            var result2 = set2.Union(set1).Result;
 
-            foreach (var x in l)
+            foreach (var x in result1)
             {
                 Console.WriteLine(x);
             }
+
+            Console.WriteLine();
+
+            foreach (var x in result2)
+            {
+                Console.WriteLine(x);
+            }
+
+            Console.WriteLine();
+            
+            var result = new Property().CommutativityUnion(set1, set2).Result;
+
+            //var r = new Operations().Union(set1, set2).Result.CurrentSet;
+
+            //foreach (var aaa in r)
+            //{
+            //    Console.WriteLine(aaa);
+            //}
+
+            Console.WriteLine(result);
         }
     }
 }

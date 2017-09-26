@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using FuzzyLogic.Operations;
@@ -16,14 +17,22 @@ namespace FuzzyLogic.Sets
 
         #endregion
 
-        #region Consructor
+        #region Constructor
 
         public Set(IEnumerable<double> currentSet)
         {
             CurrentSet = currentSet;
         }
-        
+
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            var set = (Set)obj;
+            return CurrentSet.SequenceEqual(set.CurrentSet);
+        } 
 
         #region UnaryOperations
 
@@ -84,6 +93,8 @@ namespace FuzzyLogic.Sets
         #endregion
 
         #endregion
+
+
 
         //public async Task<bool> CommutativityUnion(Set set) => await Task.Run(() => new CommutativityUnion().Operate(CurrentSet, set.CurrentSet));
 

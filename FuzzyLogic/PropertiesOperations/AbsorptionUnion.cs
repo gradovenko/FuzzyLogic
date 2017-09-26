@@ -12,8 +12,8 @@ namespace FuzzyLogic.PropertiesOperations
     {
         public bool Operate(Set set1, Set set2)
         {
-            var rightBrackets = new Operation().Union(set1, set2).Result;
-            return new Operation().Intersection(set1, rightBrackets).Result.CurrentSet.SequenceEqual(set1.CurrentSet);
+            var rightBrackets = Operation.Union(set1, set2).Result;
+            return Operation.Intersection(set1, rightBrackets).Result.CurrentSet.SequenceEqual(set1.CurrentSet);
         }
     }
 }

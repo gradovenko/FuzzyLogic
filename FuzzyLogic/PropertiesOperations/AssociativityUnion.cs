@@ -15,13 +15,13 @@ namespace FuzzyLogic.PropertiesOperations
         /// <returns></returns>
         public bool Operate(Set set1, Set set2, Set set3)
         {
-            var leftBrackets = new Set(new Operation().Union(set1, set2).Result.CurrentSet);
-            var leftResult = new Operation().Union(leftBrackets, set3).Result.CurrentSet;
+            var leftBrackets = Operation.Union(set1, set2).Result;
+            var leftResult = Operation.Union(leftBrackets, set3).Result;
 
-            var rightBrackets = new Set(new Operation().Union(set2, set3).Result.CurrentSet);
-            var rightResult = new Operation().Union(set1, rightBrackets).Result.CurrentSet;
+            var rightBrackets = Operation.Union(set2, set3).Result;
+            var rightResult = Operation.Union(set1, rightBrackets).Result;
 
-            return leftResult.SequenceEqual(rightResult);
+            return leftResult.Equals(rightResult);
         }
 }
 }

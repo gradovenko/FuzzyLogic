@@ -19,13 +19,13 @@ namespace FuzzyLogic.PropertiesOperations
         /// <returns></returns>
         public bool Operate(Set set1, Set set2, Set set3)
         {
-            var leftBrackets = new Set(new Operation().Intersection(set1, set2).Result.CurrentSet);
-            var leftResult = new Operation().Intersection(leftBrackets, set3).Result.CurrentSet;
+            var leftBrackets = Operation.Intersection(set1, set2).Result;
+            var leftResult = Operation.Intersection(leftBrackets, set3).Result;
 
-            var rightBrackets = new Set(new Operation().Intersection(set2, set3).Result.CurrentSet);
-            var rightResult = new Operation().Intersection(set1, rightBrackets).Result.CurrentSet;
+            var rightBrackets = Operation.Intersection(set2, set3).Result;
+            var rightResult = Operation.Intersection(set1, rightBrackets).Result;
 
-            return leftResult.SequenceEqual(rightResult);
+            return leftResult.Equals(rightResult);
         }
     }
 }

@@ -35,8 +35,6 @@ namespace TestConsoleApp
             }
 
             Console.WriteLine();
-            
-            var result = new Property().CommutativityUnion(set1, set2).Result;
 
             //var r = new Operations().Union(set1, set2).Result.CurrentSet;
 
@@ -44,6 +42,8 @@ namespace TestConsoleApp
             //{
             //    Console.WriteLine(aaa);
             //}
+
+            FuzzyLogic.Operations.
 
             Console.WriteLine(result);
         }

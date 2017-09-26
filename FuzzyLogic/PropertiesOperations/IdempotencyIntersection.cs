@@ -10,6 +10,6 @@ namespace FuzzyLogic.PropertiesOperations
 {
     public class IdempotencyIntersection : IUnaryProperty
     {
-        public bool Operate(Set set1) => new Operation().Intersection(set1, set1).Result.CurrentSet.SequenceEqual(set1.CurrentSet);
+        public bool Operate(Set set) => Operation.Intersection(set, set).Result.Equals(set);
     }
 }

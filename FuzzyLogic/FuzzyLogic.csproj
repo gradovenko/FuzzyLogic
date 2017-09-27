@@ -43,6 +43,7 @@
     <Compile Include="Fuzzy.cs" />
     <Compile Include="Operations\AlgebraicIntersection.cs" />
     <Compile Include="Operations\AlgebraicUnion.cs" />
+    <Compile Include="Operations\Difference.cs" />
     <Compile Include="Operations\DisjunctionSum.cs" />
     <Compile Include="Operations\ITernaryOperation.cs" />
     <Compile Include="Operations\LambdaSum.cs" />

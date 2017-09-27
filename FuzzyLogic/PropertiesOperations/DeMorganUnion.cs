@@ -16,7 +16,7 @@ namespace FuzzyLogic.PropertiesOperations
 
             var rightPart = Operation.Union(Operation.Complementation(set1).Result, Operation.Complementation(set2).Result);
 
-            return leftPart.Equals(rightPart);
+            return leftPart.Result.Equals(rightPart.Result);
         }
     }
 }

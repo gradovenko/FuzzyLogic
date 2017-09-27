@@ -14,6 +14,12 @@ namespace FuzzyLogic.Operations
         public static async Task<Set> Power(Set set, double degree) => await Task.Run(
             () => new Set(set.CurrentSet.Select(element => new Power().Operate(element, degree))));
 
+        /// <summary>
+        /// Умножение на число
+        /// </summary>
+        /// <param name="set">Множество</param>
+        /// <param name="number">Число</param>
+        /// <returns></returns>
         public static async Task<Set> ProductByNumber(Set set, double number) => await Task.Run(
             () => new Set(set.CurrentSet.Select(element => new ProductByNumber().Operate(element, number))));
 
@@ -43,13 +49,13 @@ namespace FuzzyLogic.Operations
             () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new Union().Operate(a, b))));
 
         public static async Task<Set> AlgebraicUnion(Set set1, Set set2) => await Task.Run(
-            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new Union().Operate(a, b))));
+            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new AlgebraicUnion().Operate(a, b))));
 
         public static async Task<Set> BoundedUnion(Set set1, Set set2) => await Task.Run(
-            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new Union().Operate(a, b))));
+            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new BoundedUnion().Operate(a, b))));
 
         public static async Task<Set> DrasticUnion(Set set1, Set set2) => await Task.Run(
-            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new Union().Operate(a, b))));
+            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new DrasticUnion().Operate(a, b))));
 
         #endregion
 
@@ -61,7 +67,7 @@ namespace FuzzyLogic.Operations
         /// <param name="set1"></param>
         /// <param name="set2"></param>
         /// <returns></returns>
-        public async Task<Set> DisjunctionSum(Set set1, Set set2) => await Task.Run(
+        public static async Task<Set> DisjunctionSum(Set set1, Set set2) => await Task.Run(
             () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new DisjunctionSum().Operate(a, b))));
 
         /// <summary>
@@ -71,17 +77,20 @@ namespace FuzzyLogic.Operations
         /// <param name="set2"></param>
         /// <param name="lambda"></param>
         /// <returns></returns>
-        public async Task<Set> LambdaSum(Set set1, Set set2, double lambda) => await Task.Run(
+        public static async Task<Set> LambdaSum(Set set1, Set set2, double lambda) => await Task.Run(
             () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new LambdaSum().Operate(lambda, a, b))));
 
         #endregion
 
         #region Difference
 
-        public async Task<Set> SetDifference(Set set1, Set set2) => await Task.Run(
+        public static async Task<Set> Difference(Set set1, Set set2) => await Task.Run(
+            () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new Difference().Operate(a, b))));
+
+        public static async Task<Set> SetDifference(Set set1, Set set2) => await Task.Run(
             () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new SetDifference().Operate(a, b))));
 
-        public async Task<Set> SymmetricDifference(Set set1, Set set2) => await Task.Run(
+        public static async Task<Set> SymmetricDifference(Set set1, Set set2) => await Task.Run(
             () => new Set(set1.CurrentSet.Zip(set2.CurrentSet, (a, b) => new SymmetricDifference().Operate(a, b))));
 
         #endregion

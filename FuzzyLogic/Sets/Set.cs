@@ -36,11 +36,12 @@ namespace FuzzyLogic.Sets
 
         #region UnaryOperations
 
-        public async Task<IEnumerable<double>> Complement() => await Task.Run(() => CurrentSet.Select(obj => new Complementation().Operate(obj)));
+        public async Task<Set> Complement() => await Task.Run(() => Operation.Complementation(this));
 
-        public async Task<IEnumerable<double>> Power(double degree) => await Task.Run(() => CurrentSet.Select(obj => new Power().Operate(obj, degree)));
+        public async Task<Set> Power(double degree) => await Task.Run(() => Operation.Power(this, degree));
 
-        public async Task<IEnumerable<double>> ProductByNumber(double number) => await Task.Run(() => CurrentSet.Select(obj => new ProductByNumber().Operate(number, obj)));
+        public async Task<Set> ProductByNumber(double number) =>
+            await Task.Run(() => Operation.ProductByNumber(this, number));
 
         #endregion
 
@@ -48,55 +49,56 @@ namespace FuzzyLogic.Sets
 
         #region Intersection
 
-        public async Task<IEnumerable<double>> Intersection(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new Intersection().Operate(a, b)));
+        public async Task<Set> Intersection(Set set) => await Task.Run(() => Operation.Intersection(this, set));
 
-        public async Task<IEnumerable<double>> AlgebraicIntersection(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new AlgebraicIntersection().Operate(a, b)));
+        public async Task<Set> AlgebraicIntersection(Set set) => await Task.Run(() => Operation.AlgebraicUnion(this, set));
 
-        public async Task<IEnumerable<double>> BoundedIntersection(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new BoundedIntersection().Operate(a, b)));
+        public async Task<Set> BoundedIntersection(Set set) => await Task.Run(() => Operation.BoundedIntersection(this, set));
 
-        public async Task<IEnumerable<double>> DrasticIntersection(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new DrasticIntersection().Operate(a, b)));
+        public async Task<Set> DrasticIntersection(Set set) => await Task.Run(() => Operation.DrasticIntersection(this, set));
 
         #endregion
         
         #region Union
 
-        public async Task<IEnumerable<double>> Union(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new Union().Operate(a, b)));
+        public async Task<Set> Union(Set set) => await Task.Run(() => Operation.Union(this, set));
 
-        public async Task<IEnumerable<double>> AlgebraicUnion(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new Union().Operate(a, b)));
+        public async Task<Set> AlgebraicUnion(Set set) => await Task.Run(() => Operation.AlgebraicUnion(this, set));
 
-        public async Task<IEnumerable<double>> BoundedUnion(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new Union().Operate(a, b)));
+        public async Task<Set> BoundedUnion(Set set) => await Task.Run(() => Operation.BoundedUnion(this, set));
 
-        public async Task<IEnumerable<double>> DrasticUnion(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new Union().Operate(a, b)));
+        public async Task<Set> DrasticUnion(Set set) => await Task.Run(() => Operation.DrasticUnion(this, set));
 
         #endregion
 
         #region Sum
 
-        public async Task<IEnumerable<double>> DisjunctionSum(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new DisjunctionSum().Operate(a, b)));
+        public async Task<Set> DisjunctionSum(Set set) => await Task.Run(() => Operation.DisjunctionSum(this, set));
 
-        /// <summary>
-        /// Лямбда - сумма
-        /// </summary>
-        /// <param name="lambda">Лямбда</param>
-        /// <param name="set">Нечеткое множество</param>
-        /// <returns>Нечеткое множество</returns>
-        public async Task<IEnumerable<double>> LambdaSum(double lambda, Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new LambdaSum().Operate(lambda, a, b)));
+        public async Task<Set> LambdaSum(Set set, double lambda) => await Task.Run(() => Operation.LambdaSum(this, set, lambda));
 
         #endregion
 
         #region Difference
 
-        public async Task<IEnumerable<double>> SetDifference(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new SetDifference().Operate(a, b)));
+        public async Task<Set> SetDifference(Set set) => await Task.Run(() => new Set(CurrentSet.Zip(set.CurrentSet, (a, b) => new SetDifference().Operate(a, b))));
 
-        public async Task<IEnumerable<double>> SymmetricDifference(Set set) => await Task.Run(() => CurrentSet.Zip(set.CurrentSet, (a, b) => new SymmetricDifference().Operate(a, b)));
-
-        #endregion
+        public async Task<Set> SymmetricDifference(Set set) => await Task.Run(() => new Set(CurrentSet.Zip(set.CurrentSet, (a, b) => new SymmetricDifference().Operate(a, b))));
 
         #endregion
 
+        #endregion
 
+        public static Set operator +(Set set1, Set set2) => Operation.AlgebraicUnion(set1, set2).Result;
+
+        public static Set operator *(Set set1, Set set2) => Operation.AlgebraicIntersection(set1, set2).Result;
+
+        public static Set operator -(Set set1, Set set2) => Operation.Difference(set1, set2).Result;
+
+
+
+        public override string ToString() => CurrentSet.Aggregate(string.Empty, (current, element) => current + $"{element} ");
 
         //public async Task<bool> CommutativityUnion(Set set) => await Task.Run(() => new CommutativityUnion().Operate(CurrentSet, set.CurrentSet));
-
     }
 }

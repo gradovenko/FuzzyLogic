@@ -43,9 +43,7 @@ namespace TestConsoleApp
             //    Console.WriteLine(aaa);
             //}
 
-            FuzzyLogic.Operations.
-
-            Console.WriteLine(result);
+            
         }
     }
 }

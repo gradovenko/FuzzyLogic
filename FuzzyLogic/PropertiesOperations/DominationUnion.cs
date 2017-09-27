@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FuzzyLogic.Operations;
 using FuzzyLogic.Sets;
 
 namespace FuzzyLogic.PropertiesOperations
 {
-    public class DominationUnion : IBinaryProperty
+    public class DominationUnion : IUnaryProperty
     {
-        public bool Operate(Set set1, Set set2)
-        {
-            throw new NotImplementedException();
-        }
+        public bool Operate(Set set) => Operation.Union(set, new Set(new List<double>())).Result.Equals(set);
     }
 }

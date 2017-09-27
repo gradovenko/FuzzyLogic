@@ -10,6 +10,6 @@ namespace FuzzyLogic.PropertiesOperations
 {
     public class IdempotencyUnion : IUnaryProperty
     {
-        public bool Operate(Set set1) => Operation.Union(set1, set1).Result.Equals(set1);
+        public bool Operate(Set set) => Operation.Union(set, set).Result.Equals(set);
     }
 }

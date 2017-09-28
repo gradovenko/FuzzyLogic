@@ -26,14 +26,6 @@ namespace FuzzyLogic.Sets
 
         #endregion
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-                return false;
-            var set = (Set)obj;
-            return CurrentSet.SequenceEqual(set.CurrentSet);
-        } 
-
         #region UnaryOperations
 
         public async Task<Set> Complement() => await Task.Run(() => Operation.Complementation(this));
@@ -89,16 +81,47 @@ namespace FuzzyLogic.Sets
 
         #endregion
 
-        public static Set operator +(Set set1, Set set2) => Operation.AlgebraicUnion(set1, set2).Result;
+        #region OverrideMethods
+
+        public static bool operator == (Set set1, Set set2)
+        {
+            if (ReferenceEquals(set1, set2))
+                return true;
+
+            if (set1 == null || set2 == null)
+                return false;
+
+            return set1.Equals(set2);
+        }
+
+        public static bool operator != (Set set1, Set set2) => !set1.Equals(set2);
+
+        public static Set operator !(Set set) => Operation.Complementation(set).Result;
+
+        public static Set operator &(Set set1, Set set2) => Operation.Intersection(set1, set2).Result;
+
+        public static Set operator |(Set set1, Set set2) => Operation.Union(set1, set2).Result;
 
         public static Set operator *(Set set1, Set set2) => Operation.AlgebraicIntersection(set1, set2).Result;
 
+        public static Set operator +(Set set1, Set set2) => Operation.AlgebraicUnion(set1, set2).Result;
+
         public static Set operator -(Set set1, Set set2) => Operation.Difference(set1, set2).Result;
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            var set = (Set)obj;
+            return CurrentSet.SequenceEqual(set.CurrentSet);
+        }
 
+        protected bool Equals(Set set) => Equals(CurrentSet, set.CurrentSet);
+
+        public override int GetHashCode() => CurrentSet != null ? CurrentSet.GetHashCode() : 0;
 
         public override string ToString() => CurrentSet.Aggregate(string.Empty, (current, element) => current + $"{element} ");
-
-        //public async Task<bool> CommutativityUnion(Set set) => await Task.Run(() => new CommutativityUnion().Operate(CurrentSet, set.CurrentSet));
+        
+        #endregion
     }
 }

@@ -6,6 +6,8 @@ namespace FuzzyLogic.Operations
 {
     public class Operation
     {
+        //TODO: Доработать операции
+
         #region UnaryOperations
 
         public static async Task<Set> Complementation(Set set) => await Task.Run(

@@ -5,6 +5,8 @@ namespace FuzzyLogic.PropertiesOperations
 {
     public class Property
     {
+        //TODO: Переделать свойства операций для общего ввида
+
         #region Commutativity
 
         public static async Task<bool> CommutativityUnion(Set set1, Set set2) => await Task.Run(

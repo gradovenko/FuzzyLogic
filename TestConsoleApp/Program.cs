@@ -7,9 +7,21 @@ using System.Text;
 using System.Threading.Tasks;
 using FuzzyLogic.Operations;
 using FuzzyLogic.PropertiesOperations;
+using FuzzyLogic.Sets;
 
 namespace TestConsoleApp
 {
+    internal struct NSet
+    {
+        public string Name { get; set; }
+        public Set Set { get; set; }
+
+        public NSet(string name, Set set)
+        {
+            Name = name;
+            Set = set;
+        }
+    }
     class Program
     {
         static void Main(string[] args)
@@ -22,15 +34,19 @@ namespace TestConsoleApp
             var B = new FuzzyLogic.Sets.Set(b);
             var C = new FuzzyLogic.Sets.Set(c);
 
+            var collection = new List<NSet> {new NSet("C0", A), new NSet("C1", B), new NSet("C3", C)};
 
-            var leftBracket = Operation.AlgebraicIntersection(A, B).Result;
-            var leftPart = Operation.AlgebraicUnion(A, leftBracket).Result;
+            Run(collection);
+            
 
-            //Console.WriteLine(leftPart);
+            //var leftBracket = Operation.AlgebraicIntersection(A, B).Result;
+            //var leftPart = Operation.AlgebraicUnion(A, leftBracket).Result;
 
-            var rightLeftBracket = Operation.AlgebraicUnion(A, B).Result;
-            var rightRightBracket = Operation.AlgebraicUnion(A, C).Result;
-            var rightPart = Operation.AlgebraicIntersection(rightLeftBracket, rightRightBracket).Result;
+            ////Console.WriteLine(leftPart);
+
+            //var rightLeftBracket = Operation.AlgebraicUnion(A, B).Result;
+            //var rightRightBracket = Operation.AlgebraicUnion(A, C).Result;
+            //var rightPart = Operation.AlgebraicIntersection(rightLeftBracket, rightRightBracket).Result;
 
             //Console.WriteLine(rightPart);
 
@@ -57,20 +73,26 @@ namespace TestConsoleApp
             //Console.WriteLine(Operation.AlgebraicIntersection(Operation.AlgebraicUnion(A, B).Result, Operation.AlgebraicUnion(A, C).Result).Result);
 
             //Console.WriteLine(Operation.AlgebraicIntersection(A, Operation.AlgebraicUnion(B, C).Result).Result);
-           
+
             //Console.WriteLine(Operation.AlgebraicUnion(Operation.AlgebraicIntersection(A, B).Result, Operation.AlgebraicIntersection(A, C).Result).Result);
 
-            Console.WriteLine(Operation.AlgebraicUnion(A, Operation.Intersection(B, C).Result).Result);
+            //Console.WriteLine(Operation.AlgebraicUnion(A, Operation.Intersection(B, C).Result).Result);
 
-            Console.WriteLine(Operation.Intersection(Operation.AlgebraicUnion(A, B).Result, Operation.AlgebraicUnion(A, C).Result).Result);
+            //Console.WriteLine(Operation.Intersection(Operation.AlgebraicUnion(A, B).Result, Operation.AlgebraicUnion(A, C).Result).Result);
 
 
             Console.ReadKey();
         }
 
-        //public async void Run()
-        //{
-        //    Console.WriteLine(await Property.CommutativityIntersection(setA, setB));
-        //}
+        public static async void Run(IEnumerable<NSet> sets)
+        {
+            var masterSets = sets.ToList();
+            foreach (var set in masterSets)
+            {
+                Console.WriteLine($"{set.Name} дополнение: {!set.Set}");
+                Console.WriteLine($"{set.Name} концентрация: {await Operation.Power(set.Set, 2)}");
+                Console.WriteLine($"{set.Name} растяжение: {await Operation.Power(set.Set, 0.5)}");
+            }
+        }
     }
 }

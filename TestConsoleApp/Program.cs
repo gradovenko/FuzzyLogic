@@ -92,7 +92,27 @@ namespace TestConsoleApp
                 Console.WriteLine($"{set.Name} дополнение: {!set.Set}");
                 Console.WriteLine($"{set.Name} концентрация: {await Operation.Power(set.Set, 2)}");
                 Console.WriteLine($"{set.Name} растяжение: {await Operation.Power(set.Set, 0.5)}");
+                Console.WriteLine($"{set.Name} объедение {set.Name}: {set.Set | set.Set}");
             }
+            var i = 0;
+            while (true)
+            {
+                Console.WriteLine($"{masterSets[i].Name} объедение {masterSets[i].Name}: {masterSets[i].Set | masterSets[i + 1].Set}");
+                Console.WriteLine($"{masterSets[i].Name} пересечение {masterSets[i].Name}: {masterSets[i].Set & masterSets[i + 1].Set}");
+            }
+            //Console.WriteLine($"{masterSets[0].Name} объедение {masterSets[1].Name}: {masterSets[0].Set | masterSets[1].Set}");
+            //Console.WriteLine($"{masterSets[1].Name} объедение {masterSets[2].Name}: {masterSets[1].Set | masterSets[2].Set}");
+            //Console.WriteLine($"{masterSets[2].Name} объедение {masterSets[0].Name}: {masterSets[2].Set | masterSets[0].Set}");
+            //Console.WriteLine($"{masterSets[0].Name} пересечение {masterSets[1].Name}: {masterSets[0].Set & masterSets[1].Set}");
+            //Console.WriteLine($"{masterSets[1].Name} пересечение {masterSets[2].Name}: {masterSets[1].Set & masterSets[2].Set}");
+            //Console.WriteLine($"{masterSets[2].Name} пересечение {masterSets[0].Name}: {masterSets[2].Set & masterSets[0].Set}");
+            //Console.WriteLine($"{masterSets[0].Name} алг объедение {masterSets[1].Name}: {masterSets[0].Set + masterSets[1].Set}");
+            //Console.WriteLine($"{masterSets[1].Name} алг объедение {masterSets[2].Name}: {masterSets[1].Set + masterSets[2].Set}");
+            //Console.WriteLine($"{masterSets[2].Name} алг объедение {masterSets[0].Name}: {masterSets[2].Set + masterSets[0].Set}");
+            //Console.WriteLine($"{masterSets[0].Name} алг пересечение {masterSets[1].Name}: {masterSets[0].Set * masterSets[1].Set}");
+            //Console.WriteLine($"{masterSets[1].Name} алг пересечение {masterSets[2].Name}: {masterSets[1].Set * masterSets[2].Set}");
+            //Console.WriteLine($"{masterSets[2].Name} алг пересечение {masterSets[0].Name}: {masterSets[2].Set * masterSets[0].Set}");
+
         }
     }
 }
